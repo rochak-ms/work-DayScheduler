@@ -4,27 +4,30 @@ $("#currentDay").append(currentDay);
 
 // view the TimeBlocks for the day
 var timeMoment = moment().startOf('day').add(7, 'hour');
-var hour = moment().format('H');
+var hour = moment().format('h');
 
 // console.log(timeMoment);
-// console.log(hour);
+console.log(hour);
 
 
 for(var i = 8; i < 18; i++) {
   var timeSlot = timeMoment.add(1, 'hour').format('hh:00 A');
   var blockTime;
 // color coding the time blocks indicating if the current time for input is past = grey , present = red, future = green
-if (hour == i) {
+if (hour === i ) {
   blockTime = 'present';
-} else if (hour > i) {
-  blockTime = 'future';
+  console.log(i);
 } else if (hour < i) {
+  blockTime = 'future';
+  console.log(i);
+} else if (hour > i) {
   blockTime = 'past';
+  console.log(i);
 }
 
 // <!-- Creating time blocks -->
 var newEl = 
-`<div class='row time-block' id='time-block-${i}''>
+`<div class='row time-block' id='block: ${i}''>
   <div class='col-2 hour'>${timeSlot}</div>
     <textarea class='col-9 ${blockTime} description hour-${i}'
       placeholder='Write something here...'>
@@ -47,5 +50,5 @@ $(".saveBtn").on("click", function () {
 
 //retrieving the data from local storage 
 for (var i = 8; i < 18; i++) {
-  $(`.time-block-${i}`).val(localStorage.getItem(`time-block-${i}`));
+  $(`.hour-${i}`).val(localStorage.getItem(`block: ${i}`));
 }
